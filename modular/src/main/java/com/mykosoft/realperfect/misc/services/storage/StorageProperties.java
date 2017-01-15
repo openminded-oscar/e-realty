@@ -10,7 +10,7 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
-    private String location = "/home/oleh/java/realty/realperfect/realty-objects";
+    private String location = "/home/oleh/java/projects/e-realty/realty-objects-photos";
 
     public String getLocation() {
         return location;

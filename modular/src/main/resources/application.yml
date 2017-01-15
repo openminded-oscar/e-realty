@@ -9,6 +9,8 @@ spring.datasource:
   username: root
   password: root
   driverClassName: com.mysql.jdbc.Driver
-spring.jpa:
+spring:
+  http:
+    multipart.max-file-size: 5MB
+  jpa:
     show-sql: true
-    

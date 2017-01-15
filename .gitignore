@@ -2,6 +2,7 @@
 /.metadata
 /application.yml
 /application.properties
+/realty-objects-photos
 *~
 .#*
 *#
