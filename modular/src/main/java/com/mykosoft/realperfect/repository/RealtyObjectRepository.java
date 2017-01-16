@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.mykosoft.realperfect.model.RealtyObject;
 
 @Repository
-public interface RealtyObjectRepository extends CrudRepository<RealtyObject, Long>, JpaSpecificationExecutor {
+public interface RealtyObjectRepository extends CrudRepository<RealtyObject, Long>,
+        JpaSpecificationExecutor {
 
 }

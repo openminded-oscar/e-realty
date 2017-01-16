@@ -49,10 +49,12 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload-photo")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
-        storageService.store(file);
+    public ResponseEntity<Void> handleFileUpload(@RequestParam("file") MultipartFile file,
+                                                   @RequestParam(name = "category", required = true) String fileCategory,
+                                                   @RequestParam("userId") String userId) {
+        storageService.storeFileWithCategoryForUser(file, fileCategory, userId);
 
-        return new ResponseEntity<>(file.getOriginalFilename(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

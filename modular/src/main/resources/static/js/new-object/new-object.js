@@ -1,8 +1,7 @@
 angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-object',
     function ($http, $scope, $uibModal, Upload, $timeout) {
-        var self = this;
         $http.get('/user/').then(function (response) {
-            self.user = response.data.name;
+            $scope.user = response.data.name;
         });
 
         $http.get('/cities').then(function (response) {
@@ -18,7 +17,6 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-o
             }
         });
         $scope.log = '';
-
         $scope.upload = function (files) {
             if (files && files.length) {
                 for (var i = 0; i < files.length; i++) {
@@ -27,7 +25,8 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-o
                         Upload.upload({
                             url: '/upload-photo',
                             data: {
-                                username: $scope.username,
+                                userId: $scope.user,
+                                category: 'realty-photo',
                                 file: file
                             }
                         }).then(function (resp) {
@@ -55,7 +54,7 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-o
 
         $scope.isApt = true;
         // change hardcoded values
-        $scope.realty = {address: {streetInCity: {id: 2, city: {id: 4}}}};
+        $scope.realty = {address: {streetInCity: {id: 2}}};
 
         this.addRealtyObject = function () {
             $http.post('/realty-object/add', $scope.realty).then(function (response) {
