@@ -8,9 +8,13 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class Address {
 	private StreetInCity streetInCity;
+	// +
 	private Integer numberOfStreet;
-	private Integer aptNumber;
+	// -
 	private String numberOfStreetSuffix;
+	// +
+	private Integer aptNumber;
+
 
 	@ManyToOne
 	@JoinColumn(name="street_in_city_id")

@@ -11,20 +11,20 @@ The sample application that we worked with so far in this series was trivial eno
 -----------
 static/
  js/
-   hello.js
+   real-estate-app.js
  home.html
  login.html
  index.html
 -----------
 
-There are a few problems with this. One is obvious: all the JavaScript is in a single file (`hello.js`). Another is more subtle: we have HTML "partials" for views inside our application ("login.html" and "home.html") but they are all in a flat structure and not associated with the controller code that uses them.
+There are a few problems with this. One is obvious: all the JavaScript is in a single file (`real-estate-app.js`). Another is more subtle: we have HTML "partials" for views inside our application ("login.html" and "home.html") but they are all in a flat structure and not associated with the controller code that uses them.
 
 Let's take a closer look at the JavaScript and we will see that Angular makes it easy for us to break it up into more manageable pieces:
 
-.hello.js
+.real-estate-app.js
 [source,javascript]
 ----
-angular.module('hello', [ 'ngRoute' ]).config(
+angular.module('real-estate-app', [ 'ngRoute' ]).config(
 
   function($routeProvider, $httpProvider) {
 
@@ -58,7 +58,7 @@ static/
     navigation/
       navigation.js
       login.html
-    hello.js
+    real-estate-app.js
   index.html
 -------------------
 
@@ -78,13 +78,13 @@ angular.module('home', []).controller('home', function($http) {
 });
 ----
 
-and here's the new `hello.js`:
+and here's the new `real-estate-app.js`:
 
 [source,javascript]
 ----
 code,javascript
 angular
-    .module('hello', [ 'ngRoute', 'home', 'navigation' ])
+    .module('real-estate-app', [ 'ngRoute', 'home', 'navigation' ])
     .config(
 
         function($routeProvider, $httpProvider) {
@@ -102,7 +102,7 @@ angular
         });
 ----
 
-Notice how the "hello" module _depends on_ the other two by listing them in the initial declaration along with `ngRoute`. To make that work you just need to load the module definitions in the right order in `index.html`:
+Notice how the "real-estate-app" module _depends on_ the other two by listing them in the initial declaration along with `ngRoute`. To make that work you just need to load the module definitions in the right order in `index.html`:
 
 [source,html]
 ----
@@ -110,7 +110,7 @@ Notice how the "hello" module _depends on_ the other two by listing them in the 
 <script src="js/angular-bootstrap.js" type="text/javascript"></script>
 <script src="js/home/home.js" type="text/javascript"></script>
 <script src="js/navigation/navigation.js" type="text/javascript"></script>
-<script src="js/hello.js" type="text/javascript"></script>
+<script src="js/real-estate-app.js" type="text/javascript"></script>
 ...
 ----
 
@@ -119,7 +119,7 @@ This is the Angular JS dependency management system in action. Other frameworks 
 [[using-natural-routes]]
 == Using "Natural" Routes
 
-The Angular `$routeProvider` by default works with fragment locators in the URL path, e.g. the login page is specified as a route in `hello.js` as "/login" and this translates into "/#/login" in the actual URL (the one you see in the browser window). This is so that the JavaScript in the `index.html`, loaded via the root path "/", stays active on all routes. The fragment naming is a bit unfamiliar to users and it is sometimes more convenient to use "natural" routes, where the URL path is the same as the Angular route declarations, e.g. "/login" for "/login".  You can't do that if you have _only_ static resources, because `index.html` can only be loaded one way, but if you have some active components in the stack (a proxy or some server-side logic) then you can arrange for it to work by loading `index.html` from all the Angular routes.
+The Angular `$routeProvider` by default works with fragment locators in the URL path, e.g. the login page is specified as a route in `real-estate-app.js` as "/login" and this translates into "/#/login" in the actual URL (the one you see in the browser window). This is so that the JavaScript in the `index.html`, loaded via the root path "/", stays active on all routes. The fragment naming is a bit unfamiliar to users and it is sometimes more convenient to use "natural" routes, where the URL path is the same as the Angular route declarations, e.g. "/login" for "/login".  You can't do that if you have _only_ static resources, because `index.html` can only be loaded one way, but if you have some active components in the stack (a proxy or some server-side logic) then you can arrange for it to work by loading `index.html` from all the Angular routes.
 
 In this series you have Spring Boot, so of course you have server-side logic, and using a simple Spring MVC controller you can naturalize the routes in your application. All you need is a a way to enumerate the Angular routes in the server. Here we choose to do it by a naming convention: all paths that do not contain a period (and are not explicitly mapped already) are Angular routes, and should forward to the home page:
 
@@ -136,11 +136,11 @@ This method just needs to be in a `@Controller` (not a `@RestController`) somewh
 NOTE: the application in the sample code https://github.com/dsyer/spring-security-angular/tree/master/modular[in github] has an extra route, so you can see a slightly more fully featured, and therefore hopefully realistic, application ("/home" and "/message" are different modules with slightly different views).
 
 
-To complete the application with "natural" routes, you need to tell Angular about it. There are two steps. First, in `hello.js` you add a line to the `config` function setting the "HTML5 mode" in the `$locationProvider`:
+To complete the application with "natural" routes, you need to tell Angular about it. There are two steps. First, in `real-estate-app.js` you add a line to the `config` function setting the "HTML5 mode" in the `$locationProvider`:
 
 [source,javascript]
 ----
-angular.module('hello', [ 'ngRoute', 'home', 'navigation' ]).config(
+angular.module('realEstateApp', [ 'ngRoute', 'home', 'navigation' ]).config(
 
   function($locationProvider, $routeProvider, $httpProvider) {
 
@@ -158,7 +158,7 @@ Coupled with that you need an extra `<base/>` element in the header of the HTML 
 <base href="/" />
 ...
 </head>
-<body ng-app="hello" ng-cloak class="ng-cloak">
+<body ng-app="real-estate-app" ng-cloak class="ng-cloak">
     <div ng-controller="navigation as nav" class="container">
         <ul class="nav nav-pills" role="tablist">
             <li><a href="/">home</a></li>
@@ -188,7 +188,7 @@ static/
     navigation/
       navigation.js
       login.html
-    hello.js
+    real-estate-app.js
   index.html
 ----
 
@@ -230,12 +230,12 @@ angular.module('navigation', ['auth']).controller(
 
 It isn't very different from the old controller (it still needs functions for user actions, login and logout, and an object to hold the credentials for login), but it has abstracted the implementation to the new "auth" service. The "auth" service will need an `authenticate()` function to support the `login()`, and a `clear()` function to support `logout()`. It also has a flag `authenticated` that replaces the `$rootScope.authenticated` from the old controller. We use the `authenticated` flag in a function with the same name attached the controller, so that Angular will keep checking its value and update the UI when the user logs in.
 
-Suppose you want to make the "auth" module re-usable, so you don't want any hard-coded paths in it. That's not a problem, but you will need to initialize or configure the paths in the `hello.js` module. To do that you can add a `run()` function:
+Suppose you want to make the "auth" module re-usable, so you don't want any hard-coded paths in it. That's not a problem, but you will need to initialize or configure the paths in the `real-estate-app.js` module. To do that you can add a `run()` function:
 
 [source,javascript]
 ----
 angular
-  .module('hello', [ 'ngRoute', 'auth', 'home', 'navigation' ])
+  .module('realEstateApp', [ 'ngRoute', 'auth', 'home', 'navigation' ])
   .config(
     ...
   }).run(function(auth) {
@@ -245,7 +245,7 @@ angular
 });
 ----
 
-The `run()` function can call into any of the modules that "hello" depends on, in this case injecting an `auth` service and initializing it with the paths of the home page, login and logout endpoints respectively.
+The `run()` function can call into any of the modules that "realEstateApp" depends on, in this case injecting an `auth` service and initializing it with the paths of the home page, login and logout endpoints respectively.
 
 Now you need to load the "auth" module in `index.html` in addition to the other modules (and before the "login" module since it depends on "auth"):
 
@@ -254,7 +254,7 @@ Now you need to load the "auth" module in `index.html` in addition to the other 
 ...
 <script src="js/auth/auth.js" type="text/javascript"></script>
 ...
-<script src="js/hello.js" type="text/javascript"></script>
+<script src="js/real-estate-app.js" type="text/javascript"></script>
 ...
 ----
 
@@ -344,7 +344,7 @@ The very last change is to the `index.html` so that the "logout" link is hidden 
 ----
 <html>
 ...
-<body ng-app="hello" ng-cloak class="ng-cloak">
+<body ng-app="real-estate-app" ng-cloak class="ng-cloak">
   <div ng-controller="navigation as nav" class="container">
     <ul class="nav nav-pills" role="tablist">
           ...
@@ -364,7 +364,7 @@ The way we have implemented our home page up to now it has some content it can d
 
 Hiding all content with a login page is a classic cross-cutting concern: you don't want all the logic for showing the login page stuck in all the UI modules (it would be duplicated everywhere, making the code harder to read and harder to maintain). Spring Security is all about cross-cutting concerns in the server, since it builds on top of `Filters` and AOP interceptors. Unfortunately that won't help us much in a Single Page Application, but fortunately Angular also has some features that make it easy to implement the pattern we want. The feature that helps us here is that you can install a listener for "route changes", so every time the user moves to a new route (i.e. clicks on a menu bar or whatever) or when the page loads for the first time, you get to inspect the route and if you need to you can change it.
 
-To install the listener you can write a small piece of extra code in your `auth.init()` function (since that is already arranged to run when the main "hello" module loads):
+To install the listener you can write a small piece of extra code in your `auth.init()` function (since that is already arranged to run when the main "realEstateApp" module loads):
 
 [source,javascript]
 ----

@@ -1,5 +1,5 @@
 var app = angular
-    .module('hello', ['ngRoute', 'auth', 'new-object', 'objects-search', 'navigation', 'add-city', 'object-details'])
+    .module('real-estate-app', ['ngRoute', 'auth', 'new-object', 'objects-search', 'navigation', 'add-city', 'object-details'])
     .config(
         function ($routeProvider, $httpProvider, $locationProvider) {
             $locationProvider.html5Mode(true);
@@ -31,19 +31,22 @@ var app = angular
         auth.init('/', '/login', '/logout');
     });
 
-module.directive('autoCompleteDirective', function ($http) {
+module.directive('addressAutoComplete', function ($http) {
     return {
-        restrict: 'A',
+        restrict: 'E',
         controller: 'objects-search',
         scope: {
             autoCompleteUrl: '@',
             parametersElementsIds: '@',
             resultElementId: '@',
-            ngModel: '='
+            //ngModel: '='
+            currentId: '='
         },
-        require: 'ngModel',
+        //require: 'ngModel',
         link: function (scope, elm, attrs, $scope) {
-            elm.autocomplete({
+            var variantView = elm.find("input[type='text']");
+            var variantId = elm.find("input[type='hidden']");
+            variantView.autocomplete({
                 source: function (request, response) {
                     $http({
                         method: 'post',
@@ -57,8 +60,9 @@ module.directive('autoCompleteDirective', function ($http) {
                 minLength: 2,
                 select: function (event, ui) {
                     scope.$apply(function () {
-                        scope.ngModel = ui.item.value;
-                        $("#" + (scope.resultElementId)).val(ui.item.id);
+                        // scope.ngModel = ui.item.value;
+                        scope.currentId = ui.item.id;
+                        variantId.val(ui.item.id);
                     });
                 }
             });

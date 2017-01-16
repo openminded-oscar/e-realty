@@ -53,8 +53,7 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-o
 
 
         $scope.isApt = true;
-        // change hardcoded values
-        $scope.realty = {address: {streetInCity: {id: 2}}};
+
 
         this.addRealtyObject = function () {
             $http.post('/realty-object/add', $scope.realty).then(function (response) {
@@ -81,4 +80,18 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-o
         $scope.streetIdElementId = 'streetId';
         $scope.streetParametersElementsIds = [$scope.cityIdElementId];
         $scope.cityParametersElementsIds = [];
+
+        $scope.realty = {
+            id: null,
+            address: {
+                streetInCity: {
+                    id: null,
+                    name: null,
+                    city: {
+                        name: null,
+                        id: null
+                    }
+                }
+            }
+        };
     });

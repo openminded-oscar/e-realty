@@ -17,16 +17,27 @@ import javax.persistence.Table;
 // TODO add targetoperations
 public class RealtyObject {
 	private Long id;
+	// +
 	private Integer roomsAmount;
+	// +
 	private Integer floor;
+	// +
 	private Integer totalFloors;
+	//+
 	private BigDecimal price;
+	// +
 	private BigDecimal totalArea;
+	// +
 	private BigDecimal livingArea;
+	// +
 	private String description;
+	// +
 	private Boolean hasGarage;
+	// +
 	private Boolean hasRepairing;
+	// +
 	private Integer foundationYear;
+	// +
 	private String otherInfo;
 	private BuildingType buildingType;
 	// private Set<OperationType> targetOperations;
