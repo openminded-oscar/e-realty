@@ -1,7 +1,7 @@
 angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-object',
     function ($http, $scope, $uibModal, Upload, $timeout) {
         $http.get('/user/').then(function (response) {
-            $scope.user = response.data.name;
+            $scope.user = response.data;
         });
 
         $http.get('/cities').then(function (response) {
@@ -56,6 +56,7 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-o
 
 
         this.addRealtyObject = function () {
+            $scope.realty.owner.id = $scope.user.principal.id;
             $http.post('/realty-object/add', $scope.realty).then(function (response) {
                 console.log('success' + response);
             }, function () {
@@ -92,6 +93,9 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-o
                         id: null
                     }
                 }
+            },
+            owner: {
+                id: null
             }
         };
     });

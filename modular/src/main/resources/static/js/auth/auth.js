@@ -65,7 +65,6 @@ angular
 						},
 
 						init : function(homePath, loginPath, logoutPath) {
-
 							auth.homePath = homePath;
 							auth.loginPath = loginPath;
 							auth.logoutPath = logoutPath;

@@ -36,13 +36,6 @@ public class ApplicationTests {
 	}
 
 	@Test
-	public void resourceEndpointProtected() {
-		ResponseEntity<String> response = template.getForEntity("http://localhost:"
-				+ port + "/resource", String.class);
-		assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-	}
-
-	@Test
 	public void loginSucceeds() {
 		TestRestTemplate template = new TestRestTemplate("user", "password");
 		ResponseEntity<String> response = template.getForEntity("http://localhost:" + port

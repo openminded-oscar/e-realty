@@ -4,10 +4,6 @@ var module = angular
     .controller(
         'objects-search',
         function ($http, $scope) {
-            $http.get('/resource/').then(function (response) {
-                $scope.greeting = response.data;
-            });
-
             $http.get('/user/').then(function (response) {
                 $scope.user = response.data.name;
             });
