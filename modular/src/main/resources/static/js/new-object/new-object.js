@@ -1,5 +1,15 @@
-angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-object',
-    function ($http, $scope, $uibModal, Upload, $timeout) {
+angular.module('new-object', ['ui.bootstrap', 'ngFileUpload', 'basic-app-data']).controller('new-object',
+    function ($http, $scope, $uibModal, Upload, $timeout, basicAppData) {
+        $scope.buildingTypes = basicAppData.buildingTypes;
+        $scope.operations = [];
+        var i;
+        for (i = 0; i < basicAppData.supportedOperations.length; ++i) {
+            $scope.operations[i] = {
+                name: basicAppData.supportedOperations[i],
+                selected: false
+            }
+        }
+
         $http.get('/user/').then(function (response) {
             $scope.user = response.data;
         });
@@ -54,9 +64,14 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload']).controller('new-o
 
         $scope.isApt = true;
 
-
         this.addRealtyObject = function () {
             $scope.realty.owner.id = $scope.user.principal.id;
+            for (var i = 0; i < $scope.operations.length; ++i) {
+                if ($scope.operations[i].selected) {
+                    $scope.realty.targetOperations[i] = $scope.operations.name;
+                }
+            }
+
             $http.post('/realty-object/add', $scope.realty).then(function (response) {
                 console.log('success' + response);
             }, function () {

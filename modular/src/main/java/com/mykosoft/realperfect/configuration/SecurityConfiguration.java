@@ -27,7 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http.httpBasic().and().authorizeRequests()
-                .antMatchers("/index.html", "/", "/login", "/message", "/home")
+                .antMatchers("/index.html", "/", "/login", "/message", "/home",
+                        "/realty-objects/supported-operations", "/realty-objects/building-types")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());

@@ -1,20 +1,12 @@
 package com.mykosoft.realperfect.model;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tbl_realty_object")
-// TODO add targetoperations
 public class RealtyObject {
     private Long id;
     // +
@@ -39,8 +31,10 @@ public class RealtyObject {
     private Integer foundationYear;
     // +
     private String otherInfo;
+    // +
     private BuildingType buildingType;
-    // private Set<OperationType> targetOperations;
+
+    //private Set<OperationType> targetOperations;
     private Boolean confirmed = false;
     private Boolean realterAware = false;
     private Address address;
@@ -157,6 +151,7 @@ public class RealtyObject {
     }
 
     @Column(name = "building_type")
+    @Enumerated(EnumType.STRING)
     public BuildingType getBuildingType() {
         return buildingType;
     }
@@ -165,12 +160,17 @@ public class RealtyObject {
         this.buildingType = buildingType;
     }
 
-    // public Set<OperationType> getTargetOperations() {
-    // return targetOperations;
-    // }
-    // public void setTargetOperations(Set<OperationType> targetOperations) {
-    // this.targetOperations = targetOperations;
-    // }
+//    @ElementCollection(targetClass = OperationType.class)
+//    @CollectionTable(name = "tbl_object_supported_operations",
+//            joinColumns = @JoinColumn(name = "object_id"))
+//    @Enumerated(EnumType.STRING)
+//    public Set<OperationType> getTargetOperations() {
+//        return targetOperations;
+//    }
+//
+//    public void setTargetOperations(Set<OperationType> targetOperations) {
+//        this.targetOperations = targetOperations;
+//    }
 
     @Embedded
     public Address getAddress() {

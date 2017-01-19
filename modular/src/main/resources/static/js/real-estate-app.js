@@ -1,5 +1,12 @@
 var app = angular
-    .module('real-estate-app', ['ngRoute', 'auth', 'new-object', 'objects-search', 'navigation', 'add-city', 'object-details'])
+    .module('real-estate-app', ['ngRoute',
+        'auth',
+        'basic-app-data',
+        'new-object',
+        'objects-search',
+        'navigation',
+        'add-city',
+        'object-details'])
     .config(
         function ($routeProvider, $httpProvider, $locationProvider) {
             $locationProvider.html5Mode(true);
@@ -24,10 +31,8 @@ var app = angular
 
             $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-        }).run(function (auth) {
-
+        }).run(function (auth, basicAppData) {
         // Initialize auth module with the home page and login/logout path
-        // respectively
         auth.init('/', '/login', '/logout');
     });
 
