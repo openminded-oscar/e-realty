@@ -6,7 +6,9 @@ var app = angular
         'objects-search',
         'navigation',
         'add-city',
-        'object-details'])
+        'object-details',
+        "angucomplete"
+    ])
     .config(
         function ($routeProvider, $httpProvider, $locationProvider) {
             $locationProvider.html5Mode(true);

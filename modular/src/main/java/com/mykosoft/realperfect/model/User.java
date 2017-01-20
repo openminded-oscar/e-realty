@@ -13,6 +13,10 @@ public class User {
     private Set<Role> roles;
 	private String name;
 	private String surname;
+    private String phoneNumber;
+    private String email;
+    private String profilePic;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -69,5 +73,31 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Column(name = "phone_number")
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Column(name = "profile_pic")
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 }

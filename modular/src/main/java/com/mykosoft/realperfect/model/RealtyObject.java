@@ -33,13 +33,16 @@ public class RealtyObject {
     private String otherInfo;
     // +
     private BuildingType buildingType;
+    // +
+    private Set<OperationType> targetOperations;
+    // +
+    private Address address;
+    // +
+    private User owner;
 
-    //private Set<OperationType> targetOperations;
+    private Realter realter;
     private Boolean confirmed = false;
     private Boolean realterAware = false;
-    private Address address;
-    private User owner;
-    private Realter realter;
     private String mainPhotoPath;
     private String confirmationDocPhotoPath;
 
@@ -160,17 +163,18 @@ public class RealtyObject {
         this.buildingType = buildingType;
     }
 
-//    @ElementCollection(targetClass = OperationType.class)
-//    @CollectionTable(name = "tbl_object_supported_operations",
-//            joinColumns = @JoinColumn(name = "object_id"))
-//    @Enumerated(EnumType.STRING)
-//    public Set<OperationType> getTargetOperations() {
-//        return targetOperations;
-//    }
-//
-//    public void setTargetOperations(Set<OperationType> targetOperations) {
-//        this.targetOperations = targetOperations;
-//    }
+    @ElementCollection(targetClass = OperationType.class)
+    @CollectionTable(name = "tbl_object_supported_operations",
+            joinColumns = @JoinColumn(name = "object_id"))
+    @Column(name = "operation_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    public Set<OperationType> getTargetOperations() {
+        return targetOperations;
+    }
+
+    public void setTargetOperations(Set<OperationType> targetOperations) {
+        this.targetOperations = targetOperations;
+    }
 
     @Embedded
     public Address getAddress() {
