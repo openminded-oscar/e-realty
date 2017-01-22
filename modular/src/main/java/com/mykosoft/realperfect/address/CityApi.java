@@ -30,9 +30,9 @@ public class CityApi {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/city/find")
-	public ResponseEntity<Iterable<City>> getAll(@RequestBody CityFilter cityFilter) {
+	public ResponseEntity<Iterable<City>> getByNameLike(@RequestBody CityFilter cityFilter) {
 		String query = cityFilter.getQ();
-		Iterable<City> cities = cityService.getAllWithFilter(query);
+		Iterable<City> cities = cityService.getByNameIgnoreCaseLike(query);
 
 		return new ResponseEntity<>(cities, HttpStatus.OK);
 	}

@@ -19,7 +19,7 @@ public class CityService {
 		return cityRepository.findAll();
 	}
 	
-	public Iterable<City> getAllWithFilter(String queryFromUi) {
+	public Iterable<City> getByNameIgnoreCaseLike(String queryFromUi) {
 		String likeClause = queryFromUi + "%";
 		
 		return cityRepository.findByNameIgnoreCaseLikeOrderByNameAsc(likeClause);
