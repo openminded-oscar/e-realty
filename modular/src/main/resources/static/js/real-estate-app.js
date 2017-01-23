@@ -7,7 +7,8 @@ var app = angular
         'navigation',
         'add-city',
         'object-details',
-        "angucomplete"
+        "angucomplete-alt",
+        "ui.router"
     ])
     .config(
         function ($routeProvider, $httpProvider, $locationProvider) {

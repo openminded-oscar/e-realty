@@ -2,6 +2,15 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload', 'basic-app-data'])
     function ($http, $scope, $uibModal, Upload, $timeout, basicAppData) {
         $scope.buildingTypes = basicAppData.buildingTypes;
         $scope.operations = [];
+
+        $scope.setRealter = function (selected) {
+            var selected = selected.originalObject;
+
+            if (selected) {
+                $scope.realty.realter = selected;
+            }
+        }
+
         var i;
         for (i = 0; i < basicAppData.supportedOperations.length; ++i) {
             $scope.operations[i] = {
@@ -65,21 +74,23 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload', 'basic-app-data'])
         $scope.isApt = true;
 
         this.addRealtyObject = function () {
-            $scope.realty.owner.id = $scope.user.principal.id;
-            $scope.realty.targetOperations = [];
-            for (var i = 0; i < $scope.operations.length; ++i) {
-                if ($scope.operations[i].selected) {
-                    $scope.realty.targetOperations.push($scope.operations[i].name);
+            if ($scope.newobjectform.$valid) {
+                $scope.realty.owner.id = $scope.user.principal.id;
+                $scope.realty.targetOperations = [];
+                for (var i = 0; i < $scope.operations.length; ++i) {
+                    if ($scope.operations[i].selected) {
+                        $scope.realty.targetOperations.push($scope.operations[i].name);
+                    }
                 }
+
+                console.log($scope.realty);
+
+                $http.post('/realty-object/add', $scope.realty).then(function (response) {
+                    console.log('success' + response);
+                }, function (response) {
+                    console.log('failure' + response);
+                });
             }
-
-            console.log($scope.realty);
-
-            $http.post('/realty-object/add', $scope.realty).then(function (response) {
-                console.log('success' + response);
-            }, function (response) {
-                console.log('failure' + response);
-            });
         };
 
         $scope.addCity = function () {

@@ -15,8 +15,6 @@ public class Realter {
 	private Long id;
 
 	private User user;
-	
-	private String mainPhotoPath;
 
 //	private Set<RealtyObject> realtyObjects;
 
@@ -38,15 +36,6 @@ public class Realter {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	@Column(name="main_photo_path")
-	public String getMainPhotoPath() {
-		return mainPhotoPath;
-	}
-
-	public void setMainPhotoPath(String mainPhotoPath) {
-		this.mainPhotoPath = mainPhotoPath;
 	}
 
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "realter")
