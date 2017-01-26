@@ -1,5 +1,6 @@
-angular.module('new-object', ['ui.bootstrap', 'ngFileUpload', 'basic-app-data']).controller('new-object',
-    function ($http, $scope, $uibModal, Upload, $timeout, basicAppData) {
+angular.module('new-object', ['ui.bootstrap', 'ngFileUpload', 'ui.router', 'basic-app-data']).controller('new-object',
+    function ($http, $scope, $uibModal, $state, Upload, $timeout, basicAppData) {
+        $scope.$state = $state;
         $scope.buildingTypes = basicAppData.buildingTypes;
         $scope.operations = [];
 

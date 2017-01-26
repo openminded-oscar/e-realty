@@ -11,29 +11,54 @@ var app = angular
         "ui.router"
     ])
     .config(
-        function ($routeProvider, $httpProvider, $locationProvider) {
+        function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
             $locationProvider.html5Mode(true);
+            $urlRouterProvider.when('/', '/new');
+            $urlRouterProvider.otherwise('/');
 
-            $routeProvider.when('/', {
+            $stateProvider.state('new-object', {
+                url: '/new',
                 templateUrl: 'js/new-object/new-object.html',
                 controller: 'new-object',
                 controllerAs: 'controller'
-            }).when('/all-objects', {
+            }).state('new-object.step-one', {
+                url: '/step-one',
+                templateUrl: 'js/new-object/new-object-step-one.html',
+                controller: 'new-object',
+                controllerAs: 'controller'
+            }).state('new-object.step-two', {
+                url: '/step-two',
+                templateUrl: 'js/new-object/new-object-step-two.html',
+                controller: 'new-object',
+                controllerAs: 'controller'
+            }).state('new-object.step-three', {
+                url: '/step-three',
+                templateUrl: 'js/new-object/new-object-step-three.html',
+                controller: 'new-object',
+                controllerAs: 'controller'
+            }).state('new-object.step-four', {
+                url: '/step-four',
+                templateUrl: 'js/new-object/new-object-step-four.html',
+                controller: 'new-object',
+                controllerAs: 'controller'
+            }).state('all-objects', {
+                url: '/all-objects',
                 templateUrl: 'js/objects-search/objects-search.html',
                 controller: 'objects-search',
                 controllerAs: 'controller'
-            }).when('/login', {
+            }).state('login', {
+                url: '/login',
                 templateUrl: 'js/navigation/login.html',
                 controller: 'navigation',
                 controllerAs: 'controller'
-            }).when('/object-details/:id', {
+            }).state('object-details', {
+                url: '/object-details/:id',
                 templateUrl: 'js/object-details/object-details.html',
                 controller: 'object-details',
                 controllerAs: 'controller'
-            }).otherwise('/');
+            });
 
             $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
         }).run(function (auth, basicAppData) {
         // Initialize auth module with the home page and login/logout path
         auth.init('/', '/login', '/logout');
