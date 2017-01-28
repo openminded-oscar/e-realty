@@ -32,7 +32,7 @@ public class FileSystemStorageService implements StorageService {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
 
-            Path photoPath = this.rootLocation.resolve(category).resolve(userId);
+            Path photoPath = this.rootLocation.resolve(userId).resolve(category);
             File photoFolder = photoPath.toFile();
             if (! photoFolder.exists()){
                 photoFolder.mkdirs();

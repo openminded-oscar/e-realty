@@ -3,6 +3,7 @@
 /application.yml
 /application.properties
 /uploaded-by-users
+/modular/node_modules/
 *~
 .#*
 *#
@@ -17,4 +18,3 @@ bin
 *.sw*
 *.iml
 .idea
-*.html

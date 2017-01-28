@@ -21,26 +21,21 @@ var app = angular
                 templateUrl: 'js/new-object/new-object.html',
                 controller: 'new-object',
                 controllerAs: 'controller'
-            }).state('new-object.step-one', {
-                url: '/step-one',
-                templateUrl: 'js/new-object/new-object-step-one.html',
-                controller: 'new-object',
-                controllerAs: 'controller'
-            }).state('new-object.step-two', {
-                url: '/step-two',
-                templateUrl: 'js/new-object/new-object-step-two.html',
-                controller: 'new-object',
-                controllerAs: 'controller'
-            }).state('new-object.step-three', {
-                url: '/step-three',
-                templateUrl: 'js/new-object/new-object-step-three.html',
-                controller: 'new-object',
-                controllerAs: 'controller'
-            }).state('new-object.step-four', {
-                url: '/step-four',
-                templateUrl: 'js/new-object/new-object-step-four.html',
-                controller: 'new-object',
-                controllerAs: 'controller'
+            }).state('new-object.step1', {
+                url: '/step1',
+                templateUrl: 'js/new-object/new-object-step1.html',
+            }).state('new-object.step2', {
+                url: '/step2',
+                templateUrl: 'js/new-object/new-object-step2.html',
+            }).state('new-object.step3', {
+                url: '/step3',
+                templateUrl: 'js/new-object/new-object-step3.html',
+            }).state('new-object.step4', {
+                url: '/step4',
+                templateUrl: 'js/new-object/new-object-step4.html',
+            }).state('new-object.step5', {
+                url: '/step5',
+                templateUrl: 'js/new-object/new-object-step5.html',
             }).state('all-objects', {
                 url: '/all-objects',
                 templateUrl: 'js/objects-search/objects-search.html',

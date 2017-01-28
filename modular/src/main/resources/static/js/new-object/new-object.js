@@ -45,8 +45,9 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload', 'ui.router', 'basi
                         Upload.upload({
                             url: '/upload-photo',
                             data: {
-                                userId: $scope.user,
-                                category: 'realty-photo',
+                                realtyId: $scope.realty.id,
+                                userId: $scope.user.principal.id,
+                                category: $scope.uploadCategory,
                                 file: file
                             }
                         }).then(function (resp) {
@@ -71,6 +72,14 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload', 'ui.router', 'basi
             }
         };
 
+        $scope.setConfirmationUpload = function () {
+            $scope.uploadCategory = 'realty-ownership-confirmation';
+        };
+
+        $scope.setObjectPhotosUpload = function () {
+            $scope.uploadCategory = 'realty-photo';
+        };
+
 
         $scope.isApt = true;
 
@@ -84,9 +93,8 @@ angular.module('new-object', ['ui.bootstrap', 'ngFileUpload', 'ui.router', 'basi
                     }
                 }
 
-                console.log($scope.realty);
-
                 $http.post('/realty-object/add', $scope.realty).then(function (response) {
+                    $scope.realty.id = response.data.id;
                     console.log('success' + response);
                 }, function (response) {
                     console.log('failure' + response);
