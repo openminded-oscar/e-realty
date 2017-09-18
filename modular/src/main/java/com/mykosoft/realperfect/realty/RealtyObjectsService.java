@@ -34,7 +34,7 @@ public class RealtyObjectsService {
         return realtyObjectRepository.findOne(objectId);
     }
 
-	public Set<BuildingType> getRealtyBuildingTypes(){
+    public Set<BuildingType> getRealtyBuildingTypes(){
         Set<BuildingType> buildingTypes = new HashSet<>();
         Collections.addAll(buildingTypes, BuildingType.values());
 
