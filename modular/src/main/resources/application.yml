@@ -9,11 +9,13 @@ spring.datasource:
   username: root
   password: root
   driverClassName: com.mysql.jdbc.Driver
+
 spring:
   http:
     multipart.max-file-size: 5MB
   jpa:
     show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
 
 
 NotEmpty: This field is required.
